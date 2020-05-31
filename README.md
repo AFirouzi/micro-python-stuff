@@ -2,7 +2,9 @@
 
 Some tiny stuff by python
 
-## How to use 
+## How to use
+
+### Download video from twitter
 
 * clone the repo  
 ``
