@@ -35,20 +35,20 @@ def download_video(url, quality):
             + "_"
             + (datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
         )
-    if quality == "H":
-        video_url = str(
-            status.extended_entities["media"][0]["video_info"]["variants"][2]["url"]
-        )
-        title += "_HQ"
-    if quality == "M":
-        video_url = str(
-            status.extended_entities["media"][0]["video_info"]["variants"][0]["url"]
-        )
-        title += "_MQ"
-    if quality == "L":
-        video_url = str(
-            status.extended_entities["media"][0]["video_info"]["variants"][1]["url"]
-        )
-        title += "_LQ"
-    print("\nDownloading " + title + " ...")
-    wget.download(video_url, out=title + ".mp4")
+    video_list = status.extended_entities["media"][0]["video_info"]["variants"]
+    video_url = ""
+    for item in video_list:
+        if 'bitrate' in item and int(item['bitrate']) == 432000 and quality == "L":
+            video_url = str(item["url"])
+            title += "_LQ"
+        if 'bitrate' in item and int(item['bitrate']) == 832000 and quality == "M":
+            video_url = str(item["url"])
+            title += "_MQ"
+        if 'bitrate' in item and int(item['bitrate']) == 1280000 and quality == "H":
+            video_url = str(item["url"])
+            title += "_HQ"
+    if video_url == "":
+        print("Video with given quality can't be found")
+    else:
+        print("\nDownloading " + title + " ...")
+        wget.download(video_url, out=title + ".mp4")
