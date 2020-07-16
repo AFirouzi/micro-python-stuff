@@ -2,7 +2,7 @@ import tweepy
 from datetime import datetime
 from urllib import request
 
-### Tbot Tokens
+### Tokens
 auth = tweepy.OAuthHandler(
     "AP_KEY", "API_SECRET_KEY"
 )
@@ -10,7 +10,7 @@ auth.set_access_token(
     "Access Token",
     "Access Token Secret",
 )
-### Tbot Tokens
+### Tokens
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
 class Video():
